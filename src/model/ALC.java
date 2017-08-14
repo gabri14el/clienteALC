@@ -1,10 +1,11 @@
 package model;
+import java.awt.PointerInfo;
 import java.awt.geom.Point2D;
 import java.util.Collection;
 
 public class ALC {
 
-	public static Point2D getLC(Collection<Node> pontos, Collection<Node> faclities, Collection<Tweet> clientes){
+	public static Point2D getLC(Collection<Point2D> pontos, Collection<Point2D> faclities, Collection<Point2D> clientes){
 		double score = 0; 
 		double melhor_score = 0;
 		Point2D melhor_ponto = null;
@@ -36,7 +37,7 @@ public class ALC {
 		return melhor_ponto;
 	}
 	
-	public static Point2D getMinSum(Collection<Node> pontos, Collection<Node> faclities, Collection<Tweet> clientes){
+	public static Point2D getMinSum(Collection<Point2D> pontos, Collection<Point2D> faclities, Collection<Point2D> clientes){
 		double melhor_ponto_wad = 0;
 		Point2D melhor_ponto = null; 
 		double wad;
@@ -68,7 +69,7 @@ public class ALC {
 		
 	}
 	
-	public static Point2D getMinMax(Collection<Node> pontos, Collection<Node> faclities, Collection<Tweet> clientes){
+	public static Point2D getMinMax(Collection<Point2D> pontos, Collection<Point2D> faclities, Collection<Point2D> clientes){
 		double melhor_ponto_wad = 0;
 		Point2D melhor_ponto = null; 
 		double wad;

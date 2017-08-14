@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,16 +24,20 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class Parser {
 
-	List<Node> facilities;
-        List<Node> not_facilities;
-	List<Node> pontos;
-	List<Tweet> clientes;
+	double maxlat;
+	double minlat;
+	double maxlon;
+	double minlon;
+	List<Point2D> facilities;
+        List<Point2D> not_facilities;
+	List<Point2D> pontos;
+	List<Point2D> clientes;
 	
-	public List<Tweet> getClientes() {
+	public List<Point2D> getClientes() {
 		return clientes;
 	}
 
-        public List<Node> getNot_facilities() {
+    public List<Point2D> getNot_facilities() {
             return not_facilities;
         }
 
@@ -46,21 +51,27 @@ public class Parser {
 	}
 	
     
-	public List<Node> getFacilities() {
+	public List<Point2D> getFacilities() {
 		return facilities;
 	}
 
 
-	public List<Node> getNodes() {
+	public List<Point2D> getNodes() {
 		return pontos;
 	}
 
 	
-	public List<Node> getFacilities(String amenity){
+	public List<Point2D> getFacilities(String amenity){
 		 
 		return facilities;
 	}
 
+	public void defineAlcance(double maxlon, double minlon, double maxlat, double minlat){
+		this.maxlat = maxlat;
+		this.minlat = minlat;
+		this.maxlon = maxlon;
+		this.minlon = minlon;
+	}
 	public void leClientes(String txt){
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(txt));
@@ -75,6 +86,12 @@ public class Parser {
 				tmp.data = new Date(Long.parseLong(token.nextToken()));
 				tmp.texto = token.nextToken(""); //so resta o texto do tweet então pega todos os tokens 
 				clientes.add(tmp);
+				
+//				if(tmp.lat >= minlat && tmp.lat <= maxlat){
+//					if(tmp.lon >= minlon && tmp.lon <= maxlon){
+//						
+//					}
+//				}
 			}
 			reader.close();
 			

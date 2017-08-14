@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Localização Ideal no Espaço Euclidiano</title>
+		<style> #map {height: 400px;width: 100%;}</style>
+	</head>
+	<h1>Localização Ideal no Espaço Euclidiano</h1>
+	<body align="justify">
+		Esse site tem o objetivo de escolher para você o melhor ponto, entre três candidatos, para a abertura de
+		um novo estabelecimento. Para definirmos esse ponto, você deve escolher o tipo de estabelecimento que você
+		deseja abrir.
+		
+		<form action="Concluir" method="POST">
+      		Estabelecimento: <select name="facility">
+			  <option value="bar">Bar</option>
+			  <option value="pub">Pub-Bar</option>
+			  <option value="fast_food">Fast Food</option>
+			  <option value="restaurant">Restaurante</option>
+			   <option value="ice_cream">Sorveteria</option>
+			  <option value="fuel">Posto de Gasolina</option>
+			  <option value="clinic">Clínica</option>
+			  <option value="dentist">Consultório Odontológico</option>
+			  <option value="hospital">Hóspital</option>
+			  <option value="veterinary">Clínica Veterinária</option>
+			  <option value="pharmacy">Farmácia</option>
+			  <option value="fitness_centre">Centro Fitness(Academia)</option>			  
+			</select>
+			<input type="hidden" name="lat1" id="lat1" value="invalid input" />
+			<input type="hidden" name="lng1" id="lng1" value="invalid input" />
+			<input type="hidden" name="lat2" id="lat2" value="invalid input" />
+			<input type="hidden" name="lng2" id="lng2" value="invalid input" />
+			<input type="hidden" name="lat3" id="lat3" value="null" />
+			<input type="hidden" name="lng3" id="lng3" value="null" />
+			<input type="submit" value="Começar" />
+    	</form>
+    	
+    	<div id="map"></div>
+    <script>
+      function initMap() {
+    	var ssa = {lat: -12.9014474, lng: -38.4548291};
+		var i = 0;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: ssa
+        });
+
+
+        google.maps.event.addListener(map, 'click', function(event) {
+        	   placeMarker(event.latLng);
+        	});
+
+        	function placeMarker(location) {
+        	    
+        		if(i < 3){
+        			if(i == 0){
+            			document.getElementById("lat1").value = location.lat();
+            			document.getElementById("lng1").value = location.lng();
+            		} else if(i == 1){
+            			document.getElementById("lat2").value = location.lat();
+            			document.getElementById("lng2").value = location.lng();
+            		} else {
+            			document.getElementById("lat3").value = location.lat();
+            			document.getElementById("lng3").value = location.lng();
+            		}
+            		var marker = new google.maps.Marker({
+            	        position: location, 
+            	        map: map
+            	    });
+            		i++;
+        		} else {
+        			alert("no máximo 3 candidatos");
+        		}   
+        	}
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwNEe6Zsdb6zJVuCaCFoWAIxb1d1kQKF4&callback=initMap">
+    </script>
+	</body>
+</html>
