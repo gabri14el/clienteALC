@@ -103,7 +103,7 @@ public class Parser {
 			e.printStackTrace();
 		}
 	}
-	public void init(String xml, String type){
+	public void init(String xml, String type, String clientes){
 		//String a = "/Users/gabrielantonio/Downloads/map";
                 String a = xml;
 		Node nodeAtual = null;
@@ -166,6 +166,7 @@ public class Parser {
 
                 
                 pontos.removeAll(facilities); //remove todas as facilities que queremos da lista de pontos
+                leClientes(clientes);
 		
 	}
 }

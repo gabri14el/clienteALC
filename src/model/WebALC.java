@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WebALC {
+public class WebALC implements ResultObserverOL{
 
 	public static String CLIENTES;
 	public static String OSM;
@@ -16,6 +16,10 @@ public class WebALC {
 	private Point2D minsum;
 	private Point2D maxsum;
 	private Point2D minmax;
+	private OLFactory factory;
+	
+	private int indiceMelhorPonto;
+	private double scoreMelhorPonto;
 	
 	public WebALC(String clientes, String osm) {
 		CLIENTES = clientes;
@@ -42,10 +46,9 @@ public class WebALC {
 	
 	public void init(String amenity, double maxlon, double minlon, double maxlat, double minlat){
 		parser = new Parser();
-		parser.init(OSM, amenity);
 		parser.defineAlcance(maxlon, minlon, maxlat, minlat);
-        parser.leClientes(CLIENTES);
-        
+		parser.init(OSM, amenity, CLIENTES);
+		factory = new OLFactory(this);
 	}
 	
 	public void addCandidato(Double lat, Double lng){
@@ -64,13 +67,13 @@ public class WebALC {
 	}
 
 	public void run(){
-		alc = ALC.getLC(candidatos, parser.getFacilities(), parser.getClientes());
-		minsum = ALC.getMinSum(candidatos, parser.getFacilities(), parser.getClientes());
-		minmax = ALC.getMinMax(candidatos, parser.getFacilities(), parser.getClientes());
+		alc = factory.getLC(candidatos, parser.getFacilities(), parser.getClientes());
+		minsum = factory.getMinSum(candidatos, parser.getFacilities(), parser.getClientes());
+		minmax = factory.getMinMax(candidatos, parser.getFacilities(), parser.getClientes());
 	}
 	
 	public void runOnlyALC(){
-		alc = ALC.getLC(candidatos, parser.getFacilities(), parser.getClientes());
+		alc = factory.getLC(candidatos, parser.getFacilities(), parser.getClientes());
 	}
 	public Point2D getAlc() {
 		return alc;
@@ -87,8 +90,21 @@ public class WebALC {
 	public Point2D getMinmax() {
 		return minmax;
 	}
+
+	public List<Point2D> getClientesAtraidos(){
+		return candidato[indiceMelhorPonto];
+	}
+
+	@Override
+	public void setIndiceMelhorPonto(int i) {
+		indiceMelhorPonto = i;
+		
+	}
+
 	
-	
-	
-	
+	@Override
+	public void setScoreMelhorPonto(double d) {
+		scoreMelhorPonto = d;
+		
+	}
 }

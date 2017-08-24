@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -113,10 +114,21 @@ public class Concluir extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(comeco);
+		out.println("ele atraiu "+alc.getClientesAtraidos().size()+" clientes");
 		out.println(meio);
 		String marker1 = "var marker = new google.maps.Marker({position: "
 				+ "{lat:"+alc.getAlc().getX()+", lng:"+alc.getAlc().getY()+"},map: map, label: \" \"});";
 		out.println(marker1);
+		
+		List<Point2D> clientes_atraidos = alc.getClientesAtraidos();
+		for (Point2D tweet : clientes_atraidos) {
+					
+					String tmp = "var marker = new google.maps.Marker({position: "
+							+ "{lat:"+tweet.getX()+", lng:"+tweet.getY()+"},map: map, "
+					+ "icon: { path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, strokeColor: \"green\", scale: 2}});";
+					out.println(tmp);
+					out.println();
+		}
 		out.println(fim);
 		out.close();
 	}
