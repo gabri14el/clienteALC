@@ -2,10 +2,11 @@ package model;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class WebALC implements ResultObserverOL{
+public class WebOLQ implements ResultObserverOL{
 
 	public static String CLIENTES;
 	public static String OSM;
@@ -21,7 +22,7 @@ public class WebALC implements ResultObserverOL{
 	private int indiceMelhorPonto;
 	private double scoreMelhorPonto;
 	
-	public WebALC(String clientes, String osm) {
+	public WebOLQ(String clientes, String osm) {
 		CLIENTES = clientes;
 		OSM = osm;
 		candidatos = new ArrayList<>();
@@ -92,14 +93,17 @@ public class WebALC implements ResultObserverOL{
 	}
 
 	public List<Point2D> getClientesAtraidos(){
-		return candidato[indiceMelhorPonto];
+		return clientes_atraidos[indiceMelhorPonto];
 	}
 
+	
 	@Override
 	public void setIndiceMelhorPonto(int i) {
 		indiceMelhorPonto = i;
 		
 	}
+	
+	
 
 	
 	@Override

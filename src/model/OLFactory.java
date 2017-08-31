@@ -16,7 +16,6 @@ public class OLFactory {
 		double melhor_score = 0;
 		Point2D melhor_ponto = null;
 		boolean menor = true;
-		int score_tmp;
 		int i = 0; //indice do ponto
 		for (Point2D ponto : pontos) {
 			score = 0;
@@ -32,12 +31,14 @@ public class OLFactory {
 				}
 				if(menor){
 					score++; //considerando w(c) = 1
-					if(observer.candidato[i] == null) observer.candidato[i] = new ArrayList<>();
-						observer.candidato[i].add(cliente);
+					if(observer.clientes_atraidos[i] == null) observer.clientes_atraidos[i] = new ArrayList<>();
+						observer.clientes_atraidos[i].add(cliente);
 				}
 			}
 			if(score > melhor_score){
 				melhor_score = score;
+				observer.setScoreMelhorPonto(score);
+				observer.setIndiceMelhorPonto(i);
 				melhor_ponto = ponto;
 			}
 			i++; 

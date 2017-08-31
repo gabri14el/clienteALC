@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.WebALC;
+import model.WebOLQ;
 
 /**
  * Servlet implementation class VisualizarPontos
@@ -93,7 +93,7 @@ public class Concluir extends HttpServlet {
 		
 		String amenity = request.getParameter("facility");
 		carregarHtml(path);
-		WebALC alc = new WebALC(clientes, osm);
+		WebOLQ alc = new WebOLQ(clientes, osm);
 		alc.init(amenity, -38.27777, -38.5359, -12.8272000, -13.0236000);
 		
 		
@@ -114,12 +114,13 @@ public class Concluir extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(comeco);
-		out.println("O ponto marcado em vermelho foi o escolhido entre os três candidatos."
+		out.println("O ponto marcado em vermelho foi o escolhido, dentre os três candidatos."
 				+ " Ele atraiu "+alc.getClientesAtraidos().size()+" clientes. Os clientes atraídos estão"
-						+ " marcados em verde no mapa.");
+						+ " marcados em verde no mapa. Encontramos "+alc.getFacilities().size()
+						+" estabelecimentos concorrentes, eles estão representados em vermlho no mapa." );
 		out.println(meio);
 		String marker1 = "var marker = new google.maps.Marker({position: "
-				+ "{lat:"+alc.getAlc().getX()+", lng:"+alc.getAlc().getY()+"},map: map, label: \" \"});";
+				+ "{lat:"+alc.getAlc().getX()+", lng:"+alc.getAlc().getY()+"},map: map, label: \"\"});";
 		out.println(marker1);
 		
 		List<Point2D> clientes_atraidos = alc.getClientesAtraidos();
@@ -131,6 +132,16 @@ public class Concluir extends HttpServlet {
 					out.println(tmp);
 					out.println();
 		}
+		
+		List<Point2D> facilities_concorrentes = alc.getFacilities();
+		for (Point2D facility : facilities_concorrentes) {
+			String tmp = "var marker = new google.maps.Marker({position: "
+					+ "{lat:"+facility.getX()+", lng:"+facility.getY()+"},map: map, "
+			+ "icon: { path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, strokeColor: \"red\", scale: 1.5}});";
+			out.println(tmp);
+			out.println();
+}
+		
 		out.println(fim);
 		out.close();
 	}
