@@ -114,7 +114,9 @@ public class Concluir extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(comeco);
-		out.println("ele atraiu "+alc.getClientesAtraidos().size()+" clientes");
+		out.println("O ponto marcado em vermelho foi o escolhido entre os três candidatos."
+				+ " Ele atraiu "+alc.getClientesAtraidos().size()+" clientes. Os clientes atraídos estão"
+						+ " marcados em verde no mapa.");
 		out.println(meio);
 		String marker1 = "var marker = new google.maps.Marker({position: "
 				+ "{lat:"+alc.getAlc().getX()+", lng:"+alc.getAlc().getY()+"},map: map, label: \" \"});";

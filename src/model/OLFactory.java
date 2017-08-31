@@ -10,40 +10,35 @@ public class OLFactory {
 	public OLFactory(ResultObserverOL observer){
 		this.observer = observer;
 	}
+	
 	public Point2D getLC(Collection<Point2D> pontos, Collection<Point2D> faclities, Collection<Point2D> clientes){
 		double score = 0; 
 		double melhor_score = 0;
 		Point2D melhor_ponto = null;
-		boolean menor;
+		boolean menor = true;
+		int score_tmp;
 		int i = 0; //indice do ponto
 		for (Point2D ponto : pontos) {
 			score = 0;
 			for (Point2D cliente : clientes) {
+				double distancia_cliente_ponto = Point2D.distance(cliente.getX(), cliente.getY(), ponto.getX(), ponto.getY());
 				for (Point2D facility : faclities) {
-					double distancia_cliente_ponto = Point2D.distance(cliente.getX(), cliente.getY(), ponto.getX(), ponto.getY());
-					double distancia_cliente_facility = Point2D.distance(cliente.getX(), cliente.getY(), facility.getX(), facility.getY());
 					menor = true;
+					double distancia_cliente_facility = Point2D.distance(cliente.getX(), cliente.getY(), facility.getX(), facility.getY());
 					if(distancia_cliente_facility < distancia_cliente_ponto){
 						menor = false;
-					}
-					if(menor){
-						score++; //considerando w(c) = 1
-						if(observer.candidato[i] == null) {
-							observer.candidato[i] = new ArrayList<>();
-							observer.candidato[i].add(cliente);
-						}
-						else{
-							if(!observer.candidato[i].contains(cliente)){
-								observer.candidato[i].add(cliente);
-							}
-						}
-					}
+						break;
+					}	
+				}
+				if(menor){
+					score++; //considerando w(c) = 1
+					if(observer.candidato[i] == null) observer.candidato[i] = new ArrayList<>();
+						observer.candidato[i].add(cliente);
 				}
 			}
 			if(score > melhor_score){
 				melhor_score = score;
 				melhor_ponto = ponto;
-				
 			}
 			i++; 
 		}
