@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface ResultObserverOL {
 	
-	public List<Point2D> [] clientes_atraidos = new List[3];
 	
+	
+	public void addClienteAtraido(int indice, Point2D c);
 	public void setIndiceMelhorPonto(int i);
 	public void setScoreMelhorPonto(double d);
 }

@@ -18,6 +18,8 @@ public class WebOLQ implements ResultObserverOL{
 	private Point2D maxsum;
 	private Point2D minmax;
 	private OLFactory factory;
+	public List<Point2D> [] clientes_atraidos = new List[3];
+	
 	
 	private int indiceMelhorPonto;
 	private double scoreMelhorPonto;
@@ -109,6 +111,14 @@ public class WebOLQ implements ResultObserverOL{
 	@Override
 	public void setScoreMelhorPonto(double d) {
 		scoreMelhorPonto = d;
+		
+	}
+
+
+	@Override
+	public void addClienteAtraido(int i, Point2D c) {
+		if(clientes_atraidos[i] == null) clientes_atraidos[i] = new ArrayList<>();
+		clientes_atraidos[i].add(c);
 		
 	}
 }

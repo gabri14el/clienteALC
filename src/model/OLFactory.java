@@ -31,8 +31,7 @@ public class OLFactory {
 				}
 				if(menor){
 					score++; //considerando w(c) = 1
-					if(observer.clientes_atraidos[i] == null) observer.clientes_atraidos[i] = new ArrayList<>();
-						observer.clientes_atraidos[i].add(cliente);
+					observer.addClienteAtraido(i, cliente);
 				}
 			}
 			if(score > melhor_score){

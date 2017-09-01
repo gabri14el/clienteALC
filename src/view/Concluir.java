@@ -117,7 +117,7 @@ public class Concluir extends HttpServlet {
 		out.println("O ponto marcado em vermelho foi o escolhido, dentre os três candidatos."
 				+ " Ele atraiu "+alc.getClientesAtraidos().size()+" clientes. Os clientes atraídos estão"
 						+ " marcados em verde no mapa. Encontramos "+alc.getFacilities().size()
-						+" estabelecimentos concorrentes, eles estão representados em vermlho no mapa." );
+						+" estabelecimentos concorrentes, eles estão representados em preto no mapa." );
 		out.println(meio);
 		String marker1 = "var marker = new google.maps.Marker({position: "
 				+ "{lat:"+alc.getAlc().getX()+", lng:"+alc.getAlc().getY()+"},map: map, label: \"\"});";
@@ -137,7 +137,7 @@ public class Concluir extends HttpServlet {
 		for (Point2D facility : facilities_concorrentes) {
 			String tmp = "var marker = new google.maps.Marker({position: "
 					+ "{lat:"+facility.getX()+", lng:"+facility.getY()+"},map: map, "
-			+ "icon: { path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, strokeColor: \"red\", scale: 1.5}});";
+			+ "icon: { path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, strokeColor: \"black\", scale: 1.5}});";
 			out.println(tmp);
 			out.println();
 }
